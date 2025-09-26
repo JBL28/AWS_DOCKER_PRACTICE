@@ -2,12 +2,20 @@ plugins {
     id 'org.springframework.boot' version '3.2.2'
     id 'io.spring.dependency-management' version '1.1.3'
     id 'java'
+    id "org.sonarqube" version "6.3.1.5724"
 }
 
 java {
   toolchain {
     languageVersion = JavaLanguageVersion.of(17)
   }
+}
+
+sonar {
+    properties {
+        property "sonar.projectKey", "test1"
+        property "sonar.projectName", "test1"
+    }
 }
 
 group = 'dev.example'
