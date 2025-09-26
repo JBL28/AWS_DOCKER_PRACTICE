@@ -3,10 +3,15 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    withSonarQubeEnv('MySonarQube') {
-      withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-          sh "./gradlew sonar -Dsonar.token=$SONAR_TOKEN"
+      steps {
+          withSonarQubeEnv('MySonarQube') {
+              withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                  sh '''
+                    chmod +x gradlew
+                    ./gradlew sonar --no-daemon -Dsonar.token=$SONAR_TOKEN
+                  '''
+              }
+          }
       }
-    }
   }
 }
